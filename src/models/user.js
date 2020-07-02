@@ -23,6 +23,9 @@ const userSchema = new Schema(
     email: {
       type: String,
       required: true,
+      unique: true,
+      lowercase: true,
+      trim: true,
       validate(email) {
         return validator.isEmail(email);
       }
@@ -42,7 +45,7 @@ const userSchema = new Schema(
       type: Number,
       default: 0,
       validate(value) {
-        if (value < 0) throw new Error("Age cannot be negative");
+        return value > 0;
       }
     }
   },
